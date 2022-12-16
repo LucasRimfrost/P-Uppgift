@@ -132,22 +132,22 @@ class App(ctk.CTkFrame):
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(1, weight=1)
         # Loading Images with light and dark mode
-        self.logo_image = ctk.CTkImage(Image.open('P-Uppgift/assets/CustomTkinter_logo_single.png'), size=(35, 35))
-        self.home_image = ctk.CTkImage(light_image=Image.open('home_dark.png'),
-                                       dark_image=Image.open('home_light.png'), size=(25, 25))
-        self.tech_image = ctk.CTkImage(light_image=Image.open('tech_analysis_icon_dark.png'),
-                                       dark_image=Image.open('tech_analysis_icon_light.png'), size=(25, 25))
-        self.funda_image = ctk.CTkImage(light_image=Image.open('funda_analysis_icon_dark.png'),
-                                        dark_image=Image.open('funda_analysis_icon_light.png'), size=(25, 25))
-        self.beta_image = ctk.CTkImage(light_image=Image.open('beta_icon_dark.png'),
-                                       dark_image=Image.open('beta_icon_light.png'), size=(25, 25))
-        self.exit_image = ctk.CTkImage(light_image=Image.open('exit_icon_dark.png'),
-                                       dark_image=Image.open('exit_icon_light.png'), size=(25, 25))
-        self.logout_image = ctk.CTkImage(light_image=Image.open('logout_icon_dark.png'),
-                                         dark_image=Image.open('logout_icon_light.png'), size=(25, 25))
-        self.bg_image = ctk.CTkImage(Image.open("bg_gradient.jpg"), size=(900, 500))
-        self.search_image = ctk.CTkImage(light_image=Image.open('search_icon_dark.png'),
-                                         dark_image=Image.open('search_icon_light.png'), size=(30, 30))
+        self.logo_image = ctk.CTkImage(Image.open('assets/CustomTkinter_logo_single.png'), size=(35, 35))
+        self.home_image = ctk.CTkImage(light_image=Image.open('assets/home_dark.png'),
+                                       dark_image=Image.open('assets/home_light.png'), size=(25, 25))
+        self.tech_image = ctk.CTkImage(light_image=Image.open('assets/tech_analysis_icon_dark.png'),
+                                       dark_image=Image.open('assets/tech_analysis_icon_light.png'), size=(25, 25))
+        self.funda_image = ctk.CTkImage(light_image=Image.open('assets/funda_analysis_icon_dark.png'),
+                                        dark_image=Image.open('assets/funda_analysis_icon_light.png'), size=(25, 25))
+        self.beta_image = ctk.CTkImage(light_image=Image.open('assets/beta_icon_dark.png'),
+                                       dark_image=Image.open('assets/beta_icon_light.png'), size=(25, 25))
+        self.exit_image = ctk.CTkImage(light_image=Image.open('assets/exit_icon_dark.png'),
+                                       dark_image=Image.open('assets/exit_icon_light.png'), size=(25, 25))
+        self.logout_image = ctk.CTkImage(light_image=Image.open('assets/logout_icon_dark.png'),
+                                         dark_image=Image.open('assets/logout_icon_light.png'), size=(25, 25))
+        self.bg_image = ctk.CTkImage(Image.open("assets/bg_gradient.jpg"), size=(900, 500))
+        self.search_image = ctk.CTkImage(light_image=Image.open('assets/search_icon_dark.png'),
+                                         dark_image=Image.open('assets/search_icon_light.png'), size=(30, 30))
 
 # ----------------------------------------------- String Variables -----------------------------------------------------
 
