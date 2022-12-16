@@ -2,7 +2,7 @@ from dataclasses import dataclass, asdict
 from bs4 import BeautifulSoup
 import requests
 
-
+# Declared variable names type string
 @dataclass
 class FundamentalData:
     company: str
@@ -10,7 +10,7 @@ class FundamentalData:
     f_ppe: str
     pps: str
 
-
+# Send request to url and gather funda data based on element tag and class name
 def gather_funda_info(ticker):
     header = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36'}
     url = f"https://finance.yahoo.com/quote/{ticker}/key-statistics?p={ticker}"

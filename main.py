@@ -26,15 +26,10 @@ class Windows(ctk.CTk):
         self.geometry(settings.GEOMETRY)
         self.resizable(False, False)
 
-        container = ctk.CTkFrame(
-            self,
-            width=settings.CONTAINER_WIDTH,
-            height=settings.CONTAINER_HEIGHT
-        )
+        container = ctk.CTkFrame(self, width=settings.CONTAINER_WIDTH, height=settings.CONTAINER_HEIGHT)
         container.pack(side="top", fill="both", expand=True)
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
-
         # Create a dictionary of frames
         self.frames = {}
         # Create the frames and add to a dictionary.
@@ -42,7 +37,6 @@ class Windows(ctk.CTk):
             frame = F(parent=container, controller=self)
             self.frames[F] = frame
             frame.grid(row=0, column=0, sticky="nsew")
-
         # Using a method to switch frames
         self.show_frame(LoginPage)
 
@@ -57,78 +51,42 @@ class Windows(ctk.CTk):
 class LoginPage(ctk.CTkFrame):
     def __init__(self, parent, controller):
         ctk.CTkFrame.__init__(self, parent)
-        self.bg_image = ctk.CTkImage(Image.open("../assets/bg_gradient.jpg"), size=(900, 500))
-
+        self.bg_image = ctk.CTkImage(Image.open("assets/bg_gradient.jpg"), size=(900, 500))
         self.bg_image_label = ctk.CTkLabel(self, image=self.bg_image)
         self.bg_image_label.grid(row=0, column=0)
-
-        self.login_frame = ctk.CTkFrame(
-            self,
-            corner_radius=settings.CORNER_RADIUS
-        )
+        self.login_frame = ctk.CTkFrame(self, corner_radius=settings.CORNER_RADIUS)
         self.login_frame.grid(row=0, column=0, sticky="ns")
-
-        self.login_label = ctk.CTkLabel(
-            self.login_frame,
-            text="Logga in",
-            font=ctk.CTkFont(size=20, weight="bold")
-        )
+        self.login_label = ctk.CTkLabel(self.login_frame, text="Logga in", font=ctk.CTkFont(size=20, weight="bold"))
         self.login_label.grid(row=0, column=0, padx=30, pady=(150, 15))
-
-        self.username_entry = ctk.CTkEntry(
-            self.login_frame,
-            width=settings.ENTRY_WIDTH,
-            placeholder_text="username"
-        )
+        self.username_entry = ctk.CTkEntry(self.login_frame, width=settings.ENTRY_WIDTH, placeholder_text="username")
         self.username_entry.grid(row=1, column=0, padx=30, pady=(15, 15))
         self.username_entry.bind("<Return>", lambda e: self.fetch_db(controller))
-
-        self.password_entry = ctk.CTkEntry(
-            self.login_frame,
-            width=settings.ENTRY_WIDTH,
-            show="*",
-            placeholder_text="password"
-        )
+        self.password_entry = ctk.CTkEntry(self.login_frame, width=settings.ENTRY_WIDTH, show="*", placeholder_text="password")
         self.password_entry.grid(row=2, column=0, padx=30, pady=(0, 15))
         self.password_entry.bind("<Return>", lambda e: self.fetch_db(controller))
-
-        self.login_button = ctk.CTkButton(
-            self.login_frame,
-            text="Login",
-            width=settings.ENTRY_WIDTH,
-            command=lambda: self.fetch_db(controller)
-        )
+        self.login_button = ctk.CTkButton(self.login_frame, text="Login", width=settings.ENTRY_WIDTH, command=lambda: self.fetch_db(controller))
         self.login_button.grid(row=3, column=0, padx=30, pady=(15, 15))
-
-        self.signup_button = ctk.CTkButton(
-            self.login_frame,
-            text="Skapa Konto",
-            width=settings.ENTRY_WIDTH,
-            command=lambda: self.sign_up(controller)
-        )
+        self.signup_button = ctk.CTkButton(self.login_frame, text="Skapa Konto", width=settings.ENTRY_WIDTH, command=lambda: self.sign_up(controller))
         self.signup_button.grid(row=4, column=0, padx=30, pady=(15, 15))
-
     # Show sign up page
+
     @staticmethod
     def sign_up(controller):
         controller.show_frame(SignUpPage)
-
     # Verify Login inputs to the database
+
     def fetch_db(self, controller):
         conn = sqlite3.connect("userdata.db")
         cur = conn.cursor()
 
         auth = hashlib.sha256(self.password_entry.get().encode()).hexdigest()
-
         cur.execute("SELECT * FROM userdata WHERE username = ? AND password = ?", (self.username_entry.get(), auth))
-
         if cur.fetchall():
             self.username_entry.delete(0, 'end')
             self.password_entry.delete(0, 'end')
             controller.show_frame(App)
         else:
             mbox.showinfo("", "Invalid Username or Password!")
-
         conn.commit()
 
 # ------------------------------------------------ Signup Page ---------------------------------------------------------
@@ -138,48 +96,21 @@ class LoginPage(ctk.CTkFrame):
 class SignUpPage(ctk.CTkFrame):
     def __init__(self, parent, controller):
         ctk.CTkFrame.__init__(self, parent)
-
-        self.bg_image = ctk.CTkImage(Image.open("../assets/bg_gradient.jpg"), size=(900, 500))
-
+        self.bg_image = ctk.CTkImage(Image.open("assets/bg_gradient.jpg"), size=(900, 500))
         self.bg_image_label = ctk.CTkLabel(self, image=self.bg_image)
         self.bg_image_label.grid(row=0, column=0)
-
-        self.login_frame = ctk.CTkFrame(
-            self,
-            corner_radius=settings.CORNER_RADIUS
-        )
+        self.login_frame = ctk.CTkFrame(self, corner_radius=settings.CORNER_RADIUS)
         self.login_frame.grid(row=0, column=0, sticky="ns")
-
-        self.login_label = ctk.CTkLabel(
-            self.login_frame,
-            text="Skapa Konto",
-            font=ctk.CTkFont(size=20, weight="bold")
-        )
+        self.login_label = ctk.CTkLabel(self.login_frame, text="Skapa Konto", font=ctk.CTkFont(size=20, weight="bold"))
         self.login_label.grid(row=0, column=0, padx=30, pady=(150, 15))
-
-        self.username_entry = ctk.CTkEntry(
-            self.login_frame,
-            width=settings.ENTRY_WIDTH,
-            placeholder_text="username"
-        )
+        self.username_entry = ctk.CTkEntry(self.login_frame, width=settings.ENTRY_WIDTH, placeholder_text="username")
         self.username_entry.grid(row=1, column=0, padx=30, pady=(15, 15))
-
-        self.password_entry = ctk.CTkEntry(
-            self.login_frame,
-            width=settings.ENTRY_WIDTH,
-            show="*",
-            placeholder_text="password"
-        )
+        self.password_entry = ctk.CTkEntry(self.login_frame, width=settings.ENTRY_WIDTH, show="*", placeholder_text="password")
         self.password_entry.grid(row=2, column=0, padx=30, pady=(0, 15))
-
-        self.signup_button = ctk.CTkButton(
-            self.login_frame,
-            text="Skapa Konto",
-            width=settings.ENTRY_WIDTH,
-            command=lambda: self.create_account(controller)
-        )
+        self.signup_button = ctk.CTkButton(self.login_frame, text="Skapa Konto", width=settings.ENTRY_WIDTH, command=lambda: self.create_account(controller))
         self.signup_button.grid(row=3, column=0, padx=30, pady=(15, 15))
 
+    # Get username anda password entry and puts it into database
     def create_account(self, controller):
         conn = sqlite3.connect("userdata.db")
         cur = conn.cursor()
@@ -187,39 +118,36 @@ class SignUpPage(ctk.CTkFrame):
         username, password = self.username_entry.get(), hashlib.sha256(self.password_entry.get().encode()).hexdigest()
         cur.execute("INSERT INTO userdata (username, password) VALUES (?, ?)", (username, password))
 
-        conn.commit()
-
         controller.show_frame(LoginPage)
-# ----------------------------------------------- Configuring App ------------------------------------------------------
+        conn.commit()
+    # ----------------------------------------------- Configuring App ------------------------------------------------------
 
 
 # Creating the app
 class App(ctk.CTkFrame):
     def __init__(self, parent, controller):
         ctk.CTkFrame.__init__(self, parent)
+        # Configure grid
 
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(1, weight=1)
-
-# ------------------------------------------------- Load Images --------------------------------------------------------
-
         # Loading Images with light and dark mode
-        self.logo_image = ctk.CTkImage(Image.open('../assets/CustomTkinter_logo_single.png'), size=(35, 35))
-        self.home_image = ctk.CTkImage(light_image=Image.open('../assets/home_dark.png'),
-                                       dark_image=Image.open('../assets/home_light.png'), size=(25, 25))
-        self.tech_image = ctk.CTkImage(light_image=Image.open('../assets/tech_analysis_icon_dark.png'),
-                                       dark_image=Image.open('../assets/tech_analysis_icon_light.png'), size=(25, 25))
-        self.funda_image = ctk.CTkImage(light_image=Image.open('../assets/funda_analysis_icon_dark.png'),
-                                        dark_image=Image.open('../assets/funda_analysis_icon_light.png'), size=(25, 25))
-        self.beta_image = ctk.CTkImage(light_image=Image.open('../assets/beta_icon_dark.png'),
-                                       dark_image=Image.open('../assets/beta_icon_light.png'), size=(25, 25))
-        self.exit_image = ctk.CTkImage(light_image=Image.open('../assets/exit_icon_dark.png'),
-                                       dark_image=Image.open('../assets/exit_icon_light.png'), size=(25, 25))
-        self.logout_image = ctk.CTkImage(light_image=Image.open('../assets/logout_icon_dark.png'),
-                                         dark_image=Image.open('../assets/logout_icon_light.png'), size=(25, 25))
-        self.bg_image = ctk.CTkImage(Image.open("../assets/bg_gradient.jpg"), size=(900, 500))
-        self.search_image = ctk.CTkImage(light_image=Image.open('../assets/search_icon_dark.png'),
-                                         dark_image=Image.open('../assets/search_icon_light.png'), size=(30, 30))
+        self.logo_image = ctk.CTkImage(Image.open('P-Uppgift/assets/CustomTkinter_logo_single.png'), size=(35, 35))
+        self.home_image = ctk.CTkImage(light_image=Image.open('home_dark.png'),
+                                       dark_image=Image.open('home_light.png'), size=(25, 25))
+        self.tech_image = ctk.CTkImage(light_image=Image.open('tech_analysis_icon_dark.png'),
+                                       dark_image=Image.open('tech_analysis_icon_light.png'), size=(25, 25))
+        self.funda_image = ctk.CTkImage(light_image=Image.open('funda_analysis_icon_dark.png'),
+                                        dark_image=Image.open('funda_analysis_icon_light.png'), size=(25, 25))
+        self.beta_image = ctk.CTkImage(light_image=Image.open('beta_icon_dark.png'),
+                                       dark_image=Image.open('beta_icon_light.png'), size=(25, 25))
+        self.exit_image = ctk.CTkImage(light_image=Image.open('exit_icon_dark.png'),
+                                       dark_image=Image.open('exit_icon_light.png'), size=(25, 25))
+        self.logout_image = ctk.CTkImage(light_image=Image.open('logout_icon_dark.png'),
+                                         dark_image=Image.open('logout_icon_light.png'), size=(25, 25))
+        self.bg_image = ctk.CTkImage(Image.open("bg_gradient.jpg"), size=(900, 500))
+        self.search_image = ctk.CTkImage(light_image=Image.open('search_icon_dark.png'),
+                                         dark_image=Image.open('search_icon_light.png'), size=(30, 30))
 
 # ----------------------------------------------- String Variables -----------------------------------------------------
 
@@ -438,6 +366,7 @@ class App(ctk.CTkFrame):
             values=tickers_sp500()
         )
         self.combo_box_tech.grid(row=1, column=0, pady=10)
+        # Binding keyboard keys to call function
         self.combo_box_tech.bind("<KeyRelease>", self.tech_combo_box_new_values)
         self.combo_box_tech.bind("<Return>", self.tech_combo_box_selection)
 

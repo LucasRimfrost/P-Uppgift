@@ -1,3 +1,4 @@
+# Get company name and beta value and creates object for each company
 class BetaValue:
     def __init__(self, company, beta_value):
         self.__company = company
