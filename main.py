@@ -490,9 +490,9 @@ class App(ctk.CTkFrame):
 
     # If combo box is empty button click will do nothing, else gather fundamental data
     def funda_combobox_value(self):
-        if self.combo_box_tech.get() == "":
+        if self.combo_box_funda.get() == "":
             mbox.showinfo("", "Enter a valid ticker")
-        elif self.combo_box_tech.get().upper() not in tickers_sp500():
+        elif self.combo_box_funda.get().upper() not in tickers_sp500():
             mbox.showwarning("", "Not a valid ticker!")
         else:
             self.gather_funda_data()
